@@ -1,4 +1,20 @@
+# 眼底血管分割
+
+使用U-Net对眼底血管进行分割
+
+## 环境
+
+* python 3.7
+* pytorch 1.10.1
+
+## 数据集
+
+[DRIVE: Digital Retinal Images for Vessel](https://drive.grand-challenge.org/)
+
+
+
 # U-Net: Semantic segmentation with PyTorch
+
 <a href="#"><img src="https://img.shields.io/github/workflow/status/milesial/PyTorch-UNet/Publish%20Docker%20image?logo=github&style=for-the-badge" /></a>
 <a href="https://hub.docker.com/r/milesial/unet"><img src="https://img.shields.io/badge/docker%20image-available-blue?logo=Docker&style=for-the-badge" /></a>
 <a href="https://pytorch.org/"><img src="https://img.shields.io/badge/PyTorch-v1.9.0-red.svg?logo=PyTorch&style=for-the-badge" /></a>
