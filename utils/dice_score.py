@@ -9,6 +9,9 @@ def dice_coeff(input: Tensor, target: Tensor, reduce_batch_first: bool = False, 
         raise ValueError(f'Dice: asked to reduce batch but got tensor without batch dimension (shape {input.shape})')
 
     if input.dim() == 2 or reduce_batch_first:
+        """
+            for image with size [1, h, w] or [h, w]
+        """
         inter = torch.dot(input.reshape(-1), target.reshape(-1))
         sets_sum = torch.sum(input) + torch.sum(target)
         if sets_sum.item() == 0:
@@ -16,6 +19,9 @@ def dice_coeff(input: Tensor, target: Tensor, reduce_batch_first: bool = False, 
 
         return (2 * inter + epsilon) / (sets_sum + epsilon)
     else:
+        """
+            for image with size [b, h, w] (b>1)
+        """
         # compute and average metric for each batch element
         dice = 0
         for i in range(input.shape[0]):

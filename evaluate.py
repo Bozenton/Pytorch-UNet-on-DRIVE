@@ -32,8 +32,6 @@ def evaluate(net, dataloader, device):
                 # compute the Dice score, ignoring background
                 dice_score += multiclass_dice_coeff(mask_pred[:, 1:, ...], mask_true[:, 1:, ...], reduce_batch_first=False)
 
-           
-
     net.train()
 
     # Fixes a potential division by zero error
