@@ -1,7 +1,6 @@
 import logging
 from pathlib import Path
-from nbformat import write
-
+import os
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -159,19 +158,23 @@ if __name__ == '__main__':
     logging.info(f'Using device {device}')
 
     net = UNet(n_channels=3, n_classes=2, bilinear=False)
+    net.to(device=device)
+
+    weight_file = './checkpoints/checkpoint_epoch50.pth'
+    if os.path.exists(weight_file):
+        net.load_state_dict(torch.load(weight_file, map_location=device))
+        logging.info(f'load pre-trained weights')
 
     logging.info(f'Network:\n'
                 f'\t{net.n_channels} input channels\n'
                 f'\t{net.n_classes} output channels (classes)\n'
                 f'\t{"Bilinear" if net.bilinear else "Transposed conv"} upscaling')
 
-    net.to(device=device)
-
     try:
         train(net=net,
-            epochs=2,
-            batch_size=2,
-            learning_rate=1e-4,
+            epochs=100,
+            batch_size=4,
+            learning_rate=1e-6,
             device=device,
             img_scale=1,
             val_percent=0.2,
